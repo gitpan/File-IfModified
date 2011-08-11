@@ -1,0 +1,7 @@
+Revision history for Perl extension File::IfModified.
+
+0.10  Thu Aug 11 15:42:22 2011
+	- original version; created by h2xs 1.23 with options
+		-A -n File::IfModified -b 5.8.1 -O
+
+
