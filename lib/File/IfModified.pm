@@ -2,8 +2,8 @@ package File::IfModified;
 use 5.008001;
 use strict;
 use Exporter 'import';
-our @EXPORT_OK = qw(if_modified touch);
-our $VERSION = qw(0.10);
+our @EXPORT_OK = qw(if_modified touch vtouch vtouch_all);
+our $VERSION = qw(0.20);
 
 my %mtime;
 sub if_modified{
@@ -26,6 +26,13 @@ sub touch{
     open my $fh, "+>", $file or die "touch: $file";
     close $fh;
     delete $mtime{$file};
+}
+
+sub vtouch{
+    delete $mtime{$_[0]};
+}
+sub vtouch_all{
+    %mtime = ();
 }
 1;
 __END__
@@ -58,6 +65,23 @@ File::IfModified - Perl extension for checking if-modified state of file
 =head2 EXPORT
 
 None by default.
+
+=head2 EXPORT_OK
+=cut
+
+=over 
+
+=item if_modified( $file )
+    --- return status of $file for current script 
+
+=item touch( $file )
+    --- perl equivalent of unix touch
+
+=item vtouch( $file ) 
+    --- virtual equivalent of touch: Flush internal cache "if_modified" for current file
+
+=item vtouch_all( $file )
+    --- flush all "if_modified" cache.
 
 
 =head1 SEE ALSO
